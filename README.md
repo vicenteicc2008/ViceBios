@@ -1,3 +1,3 @@
 # ViceBios
-a BIOS Setup for UEFI
+a BIOS Setup for EDK2/UEFI
 
