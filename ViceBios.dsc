@@ -6,7 +6,7 @@
   SUPPORTED_ARCHITECTURES        = ARM|AARCH64
   BUILD_TARGETS                  = DEBUG|RELEASE
 
-!include ViceBios
+!include ViceBios.inc
 !include MdePkg/MdeLibs.dsc.inc
 
 [PcdsFixedAtBuild.common]
