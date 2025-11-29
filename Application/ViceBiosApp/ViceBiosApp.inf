@@ -4,7 +4,7 @@
   FILE_GUID                      = 9A45837B-01C4-4B36-943E-8D4EC55224B8
   MODULE_TYPE                    = UEFI_APPLICATION
   VERSION_STRING                 = 1.0
-  ENTRY_POINT                    = InitializeBIOSUI
+  ENTRY_POINT                    = InitializeViceBIOSUI
 
 [BuildOptions.AARCH64]
   GCC:*_*_*_CC_FLAGS = -Wno-unused-function -Wno-unused-variable
