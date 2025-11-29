@@ -38,8 +38,6 @@
 [Protocols]
   gEfiSmbiosProtocolGuid                        ## CONSUMES
   gEfiHiiConfigAccessProtocolGuid               ## CONSUMES
-  gEfiGraphicsOutputProtocolGuid                ## CONSUMES
-  gEfiAbsolutePointerProtocolGuid               ## CONSUMES
 
 [FeaturePcd]
 
