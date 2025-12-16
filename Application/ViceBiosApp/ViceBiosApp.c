@@ -7,20 +7,7 @@
 
 **/
 
-#include <Uefi.h>
-#include <IndustryStandard/SmBios.h>
-#include <Protocol/PlatformLogo.h>
-#include <Protocol/Smbios.h>
-#include <Library/UefiLib.h>
-#include <Library/UefiApplicationEntryPoint.h>
-#include <Library/UefiBootServicesTableLib.h>
-#include <Library/UefiRuntimeServicesTableLib.h>
-#include <Library/MemoryAllocationLib.h>
-#include <Library/BaseMemoryLib.h>
-#include <Library/DebugLib.h>
-#include <Library/PrintLib.h>
-
-#include <Library/LvglLib.h>
+#include "ViceBiosCommon.h"
 
 /**********************
  *  STATIC VARIABLES
