@@ -6,7 +6,7 @@
   VERSION_STRING                 = 1.0
   ENTRY_POINT                    = InitializeViceBIOSUI
 
-[BuildOptions.AARCH64]
+[BuildOptions.Common]
   GCC:*_*_*_CC_FLAGS = -Wno-unused-function -Wno-unused-variable
 
 [Sources]
