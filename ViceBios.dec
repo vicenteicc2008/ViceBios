@@ -13,3 +13,6 @@
 [Guids.common]
 
 [Protocols.common]
+
+[LibraryClasses]
+  LvglLib|Include/Library/LvglLib.h
