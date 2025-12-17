@@ -11,6 +11,9 @@
 
 [Sources]
   ViceBiosApp.c
+  UefiBootOptions.c
+  UefiBasicInfo.c
+  UefiTime.c
 
 [Packages]
   MdePkg/MdePkg.dec
