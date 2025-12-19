@@ -2,7 +2,7 @@
   LvglLib class with APIs from the openssl project
 
   Copyright (c) 2024, Yang Gang. All rights reserved.<BR>
-  Copyright (c) 2025, Vicente Cortes. All rights reserved.<BR>
+  Copyright (c) 2025, viZPilot. All rights reserved.<BR>
   SPDX-License-Identifier: BSD-2-Clause-Patent
 
 **/
