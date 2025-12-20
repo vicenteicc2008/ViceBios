@@ -7,8 +7,8 @@
 
 **/
 
-#ifndef __VICE_BIOS_COMMON_H__
-#define __VICE_BIOS_COMMON_H__
+#ifndef __VIZ_BIOS_COMMON_H__
+#define __VIZ_BIOS_COMMON_H__
 
 #include <Uefi.h>
 #include <IndustryStandard/SmBios.h>

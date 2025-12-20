@@ -7,7 +7,7 @@
 
 **/
 
-#include "ViceBiosCommon.h"
+#include "viZBiosCommon.h"
 
 /**********************
  *  STATIC VARIABLES

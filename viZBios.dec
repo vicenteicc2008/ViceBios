@@ -1,6 +1,6 @@
 [Defines]
   DEC_SPECIFICATION              = 0x00010005
-  PACKAGE_NAME                   = ViceBios
+  PACKAGE_NAME                   = viZBios
   PACKAGE_GUID                   = 19C5D22D-3A98-466E-B9A5-F84AADE48433
   PACKAGE_VERSION                = 0.01
 

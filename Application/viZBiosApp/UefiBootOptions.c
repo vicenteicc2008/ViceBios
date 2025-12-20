@@ -7,7 +7,7 @@
 
 **/
 
-#include "ViceBiosCommon.h"
+#include "viZBiosCommon.h"
 #include <Library/UefiBootManagerLib.h>
 
 static lv_obj_t * BootOptionsList;

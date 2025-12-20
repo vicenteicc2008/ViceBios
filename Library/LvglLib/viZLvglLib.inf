@@ -465,7 +465,7 @@
 [Packages]
   MdePkg/MdePkg.dec
   MdeModulePkg/MdeModulePkg.dec
-  LvglPkg/LvglPkg.dec
+  viZBios/viZBios.dec
 
 [LibraryClasses]
   UefiLib

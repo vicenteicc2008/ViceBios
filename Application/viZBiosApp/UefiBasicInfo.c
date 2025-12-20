@@ -7,7 +7,7 @@
 
 **/
 
-#include "ViceBiosCommon.h"
+#include "viZBiosCommon.h"
 #include "src/core/lv_obj.h"
 #include "src/core/lv_obj_pos.h"
 #include "src/misc/lv_area.h"

@@ -1,12 +1,12 @@
 [Defines]
-  PLATFORM_NAME                  = ViceBios
+  PLATFORM_NAME                  = viZBios
   PLATFORM_GUID                  = 7406EA2D-E030-438B-A44B-B93CAEB278C3
   PLATFORM_VERSION               = 1.00
   DSC_SPECIFICATION              = 0x00010006
   SUPPORTED_ARCHITECTURES        = ARM|AARCH64
   BUILD_TARGETS                  = DEBUG|RELEASE
 
-!include ViceBios.inc
+!include viZBios.inc
 !include MdePkg/MdeLibs.dsc.inc
 
 [PcdsFixedAtBuild.common]
@@ -45,7 +45,7 @@
   UefiRuntimeServicesTableLib|MdePkg/Library/UefiRuntimeServicesTableLib/UefiRuntimeServicesTableLib.inf
   VariablePolicyHelperLib|MdeModulePkg/Library/VariablePolicyHelperLib/VariablePolicyHelperLib.inf
 
-  LvglLib|ViceBios/Library/LvglLib/ViceLvglLib.inf
+  LvglLib|viZBios/Library/LvglLib/viZLvglLib.inf
 
 [LibraryClasses.AARCH64, LibraryClasses.ARM]
   ArmLib|ArmPkg/Library/ArmLib/ArmBaseLib.inf

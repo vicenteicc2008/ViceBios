@@ -7,7 +7,7 @@
 
 **/
 
-#include "ViceBiosCommon.h"
+#include "viZBiosCommon.h"
 
 
 #if LV_USE_FLOAT
