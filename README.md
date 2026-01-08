@@ -8,3 +8,5 @@ YangGangUEFI for LvglLib and UefiDashboard because i took LvglLib and some UefiD
 
 WOA-Project for BdsMenuApp.inf file because i took some BdsMenuApp.inf code from [Lumia950XLPkg](https://github.com/WOA-Project/Lumia950XLPkg).
 
+wjs-o-wjs for freetype code because i took it from [yaSetupDxe](https://github.com/wjs-o-wjs/yaSetupDxe).
+
