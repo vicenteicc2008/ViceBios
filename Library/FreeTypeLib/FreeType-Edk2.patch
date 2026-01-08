@@ -1,0 +1,1851 @@
+diff --git a/include/freetype/internal/ftdebug.h b/include/freetype/internal/ftdebug.h
+index f05b139..9c7a273 100644
+--- a/include/freetype/internal/ftdebug.h
++++ b/include/freetype/internal/ftdebug.h
+@@ -312,7 +312,7 @@ FT_BEGIN_HEADER
+           do                                                        \
+           {                                                         \
+             if ( !( condition ) )                                   \
+-              FT_Panic( "assertion failed on line %d of file %s\n", \
++              FT_Panic( "assertion failed on line %d of file %a\n", \
+                         __LINE__, __FILE__ );                       \
+           } while ( 0 )
+ 
+diff --git a/src/autofit/afcjk.c b/src/autofit/afcjk.c
+index 1853a17..efc98e8 100644
+--- a/src/autofit/afcjk.c
++++ b/src/autofit/afcjk.c
+@@ -68,7 +68,7 @@
+ 
+ 
+     FT_TRACE5(( "\n" ));
+-    FT_TRACE5(( "cjk standard widths computation (style `%s')\n",
++    FT_TRACE5(( "cjk standard widths computation (style `%a')\n",
+                 af_style_names[metrics->root.style_class->style] ));
+     FT_TRACE5(( "===================================================\n" ));
+     FT_TRACE5(( "\n" ));
+@@ -251,7 +251,7 @@
+           FT_UInt  i;
+ 
+ 
+-          FT_TRACE5(( "%s widths:\n",
++          FT_TRACE5(( "%a widths:\n",
+                       dim == AF_DIMENSION_VERT ? "horizontal"
+                                                : "vertical" ));
+ 
+@@ -340,7 +340,7 @@
+         };
+ 
+ 
+-        FT_TRACE5(( "blue zone %d (%s):\n",
++        FT_TRACE5(( "blue zone %d (%a):\n",
+                     axis->blue_count,
+                     cjk_blue_name[AF_CJK_IS_HORIZ_BLUE( bs ) |
+                                   AF_CJK_IS_TOP_BLUE( bs )   ] ));
+@@ -1812,7 +1812,7 @@
+ #endif
+ 
+ 
+-    FT_TRACE5(( "cjk %s edge hinting (style `%s')\n",
++    FT_TRACE5(( "cjk %a edge hinting (style `%a')\n",
+                 dim == AF_DIMENSION_VERT ? "horizontal" : "vertical",
+                 af_style_names[hints->metrics->style_class->style] ));
+ 
+diff --git a/src/autofit/afglobal.c b/src/autofit/afglobal.c
+index 87a3fbf..90275fa 100644
+--- a/src/autofit/afglobal.c
++++ b/src/autofit/afglobal.c
+@@ -293,7 +293,7 @@
+       FT_Long        idx;
+ 
+ 
+-      FT_TRACE4(( "%s:\n", af_style_names[style_class->style] ));
++      FT_TRACE4(( "%a:\n", af_style_names[style_class->style] ));
+ 
+       for ( idx = 0; idx < globals->glyph_count; idx++ )
+       {
+diff --git a/src/autofit/afhints.c b/src/autofit/afhints.c
+index ae7d105..86835b5 100644
+--- a/src/autofit/afhints.c
++++ b/src/autofit/afhints.c
+@@ -453,7 +453,7 @@
+         contour++;
+       }
+ 
+-      AF_DUMP(( "  %5d  %5s %5s  %5s %5s  %s"
++      AF_DUMP(( "  %5d  %5s %5s  %5s %5s  %a"
+                 " %5d %5d %7.2f %7.2f %7.2f %7.2f"
+                 " %5s %5s %5s %5s\n",
+                 point_idx,
+@@ -548,7 +548,7 @@
+       char  buf1[16], buf2[16], buf3[16];
+ 
+ 
+-      AF_DUMP(( "Table of %s segments:\n",
++      AF_DUMP(( "Table of %a segments:\n",
+                 dimension == AF_DIMENSION_HORZ ? "vertical"
+                                                : "horizontal" ));
+       if ( axis->num_segments )
+@@ -690,12 +690,12 @@
+        *       since they have a constant X coordinate.
+        */
+       if ( dimension == AF_DIMENSION_HORZ )
+-        AF_DUMP(( "Table of %s edges (1px=%.2fu, 10u=%.2fpx):\n",
++        AF_DUMP(( "Table of %a edges (1px=%.2fu, 10u=%.2fpx):\n",
+                   "vertical",
+                   65536.0 * 64.0 / hints->x_scale,
+                   10.0 * hints->x_scale / 65536.0 / 64.0 ));
+       else
+-        AF_DUMP(( "Table of %s edges (1px=%.2fu, 10u=%.2fpx):\n",
++        AF_DUMP(( "Table of %a edges (1px=%.2fu, 10u=%.2fpx):\n",
+                   "horizontal",
+                   65536.0 * 64.0 / hints->y_scale,
+                   10.0 * hints->y_scale / 65536.0 / 64.0 ));
+diff --git a/src/autofit/aflatin.c b/src/autofit/aflatin.c
+index bed0cce..35f0dd6 100644
+--- a/src/autofit/aflatin.c
++++ b/src/autofit/aflatin.c
+@@ -59,7 +59,7 @@
+ 
+ 
+     FT_TRACE5(( "\n" ));
+-    FT_TRACE5(( "latin standard widths computation (style `%s')\n",
++    FT_TRACE5(( "latin standard widths computation (style `%a')\n",
+                 af_style_names[metrics->root.style_class->style] ));
+     FT_TRACE5(( "=====================================================\n" ));
+     FT_TRACE5(( "\n" ));
+@@ -248,7 +248,7 @@
+           FT_UInt  i;
+ 
+ 
+-          FT_TRACE5(( "%s widths:\n",
++          FT_TRACE5(( "%a widths:\n",
+                       dim == AF_DIMENSION_VERT ? "horizontal"
+                                                : "vertical" ));
+ 
+@@ -860,7 +860,7 @@
+               continue;
+             }
+ 
+-            FT_TRACE5(( " (%s)\n", round ? "round" : "flat" ));
++            FT_TRACE5(( " (%a)\n", round ? "round" : "flat" ));
+           }
+ 
+           if ( AF_LATIN_IS_TOP_BLUE( bs ) )
+@@ -1025,7 +1025,7 @@
+         {
+           *a = *b;
+           FT_TRACE5(( "blue zone overlap:"
+-                      " adjusting %s %ld to %ld\n",
++                      " adjusting %a %ld to %ld\n",
+                       a_is_top ? "overshoot" : "reference",
+                       blue_sorted[i] - axis->blues,
+                       *a ));
+@@ -1270,7 +1270,7 @@
+             if ( dist == 0 )
+             {
+               FT_TRACE5(( "af_latin_metrics_scale_dim:"
+-                          " x height alignment (style `%s'):\n",
++                          " x height alignment (style `%a'):\n",
+                           af_style_names[metrics->root.style_class->style] ));
+               FT_TRACE5(( "                           "
+                           " vertical scaling changed"
+@@ -1286,7 +1286,7 @@
+             else
+             {
+               FT_TRACE5(( "af_latin_metrics_scale_dim:"
+-                          " x height alignment (style `%s'):\n",
++                          " x height alignment (style `%a'):\n",
+                           af_style_names[metrics->root.style_class->style] ));
+               FT_TRACE5(( "                           "
+                           " excessive vertical scaling abandoned\n" ));
+@@ -1312,7 +1312,7 @@
+       metrics->root.scaler.y_delta = delta;
+     }
+ 
+-    FT_TRACE5(( "%s widths (style `%s')\n",
++    FT_TRACE5(( "%a widths (style `%a')\n",
+                 dim == AF_DIMENSION_HORZ ? "horizontal" : "vertical",
+                 af_style_names[metrics->root.style_class->style] ));
+ 
+@@ -1340,7 +1340,7 @@
+ #ifdef FT_DEBUG_LEVEL_TRACE
+     if ( axis->extra_light )
+     {
+-      FT_TRACE5(( "`%s' style is extra light (at current resolution)\n",
++      FT_TRACE5(( "`%a' style is extra light (at current resolution)\n",
+                   af_style_names[metrics->root.style_class->style] ));
+       FT_TRACE5(( "\n" ));
+     }
+@@ -1350,7 +1350,7 @@
+     {
+ #ifdef FT_DEBUG_LEVEL_TRACE
+       if ( axis->blue_count )
+-        FT_TRACE5(( "blue zones (style `%s')\n",
++        FT_TRACE5(( "blue zones (style `%a')\n",
+                     af_style_names[metrics->root.style_class->style] ));
+ #endif
+ 
+@@ -1468,13 +1468,13 @@
+         AF_LatinBlue  blue = &axis->blues[nn];
+ 
+ 
+-        FT_TRACE5(( "  reference %d: %ld scaled to %.2f%s\n",
++        FT_TRACE5(( "  reference %d: %ld scaled to %.2f%a\n",
+                     nn,
+                     blue->ref.org,
+                     blue->ref.fit / 64.0,
+                     ( blue->flags & AF_LATIN_BLUE_ACTIVE ) ? ""
+                                                            : " (inactive)" ));
+-        FT_TRACE5(( "  overshoot %d: %ld scaled to %.2f%s\n",
++        FT_TRACE5(( "  overshoot %d: %ld scaled to %.2f%a\n",
+                     nn,
+                     blue->shoot.org,
+                     blue->shoot.fit / 64.0,
+@@ -3009,7 +3009,7 @@
+ #endif
+ 
+ 
+-    FT_TRACE5(( "latin %s edge hinting (style `%s')\n",
++    FT_TRACE5(( "latin %a edge hinting (style `%a')\n",
+                 dim == AF_DIMENSION_VERT ? "horizontal" : "vertical",
+                 af_style_names[hints->metrics->style_class->style] ));
+ 
+diff --git a/src/autofit/afmodule.c b/src/autofit/afmodule.c
+index 1b14ae6..bc28cb6 100644
+--- a/src/autofit/afmodule.c
++++ b/src/autofit/afmodule.c
+@@ -148,7 +148,7 @@
+ 
+       if ( !af_style_classes[ss] )
+       {
+-        FT_TRACE2(( "af_property_set: Invalid value %d for property `%s'\n",
++        FT_TRACE2(( "af_property_set: Invalid value %d for property `%a'\n",
+                     *fallback_script, property_name ));
+         return FT_THROW( Invalid_Argument );
+       }
+@@ -278,7 +278,7 @@
+       return error;
+     }
+ 
+-    FT_TRACE2(( "af_property_set: missing property `%s'\n",
++    FT_TRACE2(( "af_property_set: missing property `%a'\n",
+                 property_name ));
+     return FT_THROW( Missing_Property );
+   }
+@@ -367,7 +367,7 @@
+       return error;
+     }
+ 
+-    FT_TRACE2(( "af_property_get: missing property `%s'\n",
++    FT_TRACE2(( "af_property_get: missing property `%a'\n",
+                 property_name ));
+     return FT_THROW( Missing_Property );
+   }
+diff --git a/src/autofit/afshaper.c b/src/autofit/afshaper.c
+index 298480d..f2b6f9e 100644
+--- a/src/autofit/afshaper.c
++++ b/src/autofit/afshaper.c
+@@ -181,7 +181,7 @@
+     if ( hb_set_is_empty( gsub_lookups ) )
+       goto Exit; /* nothing to do */
+ 
+-    FT_TRACE4(( "GSUB lookups (style `%s'):\n",
++    FT_TRACE4(( "GSUB lookups (style `%a'):\n",
+                 af_style_names[style_class->style] ));
+     FT_TRACE4(( " " ));
+ 
+@@ -214,7 +214,7 @@
+     FT_TRACE4(( "\n" ));
+ #endif
+ 
+-    FT_TRACE4(( "GPOS lookups (style `%s'):\n",
++    FT_TRACE4(( "GPOS lookups (style `%a'):\n",
+                 af_style_names[style_class->style] ));
+     FT_TRACE4(( " " ));
+ 
+diff --git a/src/base/ftdbgmem.c b/src/base/ftdbgmem.c
+index 1df83c4..6ae6a71 100644
+--- a/src/base/ftdbgmem.c
++++ b/src/base/ftdbgmem.c
+@@ -324,7 +324,7 @@
+         if ( node->size > 0 )
+         {
+           printf(
+-            "leaked memory block at address %p, size %8ld in (%s:%ld)\n",
++            "leaked memory block at address %p, size %8ld in (%a:%ld)\n",
+             (void*)node->address,
+             node->size,
+             FT_FILENAME( node->source->file_name ),
+@@ -492,7 +492,7 @@
+           ft_mem_debug_panic(
+             "memory heap corrupted (re-allocating allocated block at"
+             " %p, of size %ld)\n"
+-            "org=%s:%d new=%s:%d\n",
++            "org=%a:%d new=%a:%d\n",
+             node->address, node->size,
+             FT_FILENAME( node->source->file_name ), node->source->line_no,
+             FT_FILENAME( _ft_debug_file ), _ft_debug_lineno );
+@@ -578,9 +578,9 @@
+         if ( node->size < 0 )
+           ft_mem_debug_panic(
+             "freeing memory block at %p more than once\n"
+-            "  at (%s:%ld)!\n"
+-            "  Block was allocated at (%s:%ld)\n"
+-            "  and released at (%s:%ld).",
++            "  at (%a:%ld)!\n"
++            "  Block was allocated at (%a:%ld)\n"
++            "  and released at (%a:%ld).",
+             address,
+             FT_FILENAME( _ft_debug_file ), _ft_debug_lineno,
+             FT_FILENAME( node->source->file_name ), node->source->line_no,
+@@ -625,7 +625,7 @@
+       }
+       else
+         ft_mem_debug_panic(
+-          "trying to free unknown block at %p in (%s:%ld)\n",
++          "trying to free unknown block at %p in (%a:%ld)\n",
+           address,
+           FT_FILENAME( _ft_debug_file ), _ft_debug_lineno );
+     }
+@@ -676,7 +676,7 @@
+ 
+ 
+     if ( !block )
+-      ft_mem_debug_panic( "trying to free NULL in (%s:%ld)",
++      ft_mem_debug_panic( "trying to free NULL in (%a:%ld)",
+                           FT_FILENAME( _ft_debug_file ),
+                           _ft_debug_lineno );
+ 
+@@ -714,7 +714,7 @@
+     /* the following is valid according to ANSI C */
+ #if 0
+     if ( !block || !cur_size )
+-      ft_mem_debug_panic( "trying to reallocate NULL in (%s:%ld)",
++      ft_mem_debug_panic( "trying to reallocate NULL in (%a:%ld)",
+                           file_name, line_no );
+ #endif
+ 
+@@ -722,7 +722,7 @@
+     /* such case should be handled by FreeType.                      */
+     if ( new_size <= 0 )
+       ft_mem_debug_panic(
+-        "trying to reallocate %p to size 0 (current is %ld) in (%s:%ld)",
++        "trying to reallocate %p to size 0 (current is %ld) in (%a:%ld)",
+         block, cur_size, file_name, line_no );
+ 
+     /* check `cur_size' value */
+@@ -730,17 +730,17 @@
+     node  = *pnode;
+     if ( !node )
+       ft_mem_debug_panic(
+-        "trying to reallocate unknown block at %p in (%s:%ld)",
++        "trying to reallocate unknown block at %p in (%a:%ld)",
+         block, file_name, line_no );
+ 
+     if ( node->size <= 0 )
+       ft_mem_debug_panic(
+-        "trying to reallocate freed block at %p in (%s:%ld)",
++        "trying to reallocate freed block at %p in (%a:%ld)",
+         block, file_name, line_no );
+ 
+     if ( node->size != cur_size )
+       ft_mem_debug_panic( "invalid ft_realloc request for %p. cur_size is "
+-                          "%ld instead of %ld in (%s:%ld)",
++                          "%ld instead of %ld in (%a:%ld)",
+                           block, cur_size, node->size, file_name, line_no );
+ 
+     /* return NULL if the maximum number of allocations was reached */
+@@ -941,7 +941,7 @@
+       printf( " count   high      sum  highsum      max   location\n" );
+       printf( "-------------------------------------------------\n" );
+ 
+-      fmt = "%6ld %6ld %8ld %8ld %8ld %s:%d\n";
++      fmt = "%6ld %6ld %8ld %8ld %8ld %a:%d\n";
+ 
+       for ( nn = 0; nn < count; nn++ )
+       {
+diff --git a/src/base/ftdebug.c b/src/base/ftdebug.c
+index 648fff4..f959dc8 100644
+--- a/src/base/ftdebug.c
++++ b/src/base/ftdebug.c
+@@ -135,7 +135,7 @@
+ #if 0
+     /* activating the code in this block makes FreeType very chatty */
+     fprintf( stderr,
+-             "%s:%d: error 0x%02x: %s\n",
++             "%a:%d: error 0x%02x: %a\n",
+              file,
+              line,
+              error,
+diff --git a/src/base/ftinit.c b/src/base/ftinit.c
+index 0f29a60..0396df9 100644
+--- a/src/base/ftinit.c
++++ b/src/base/ftinit.c
+@@ -95,7 +95,7 @@
+       /* notify errors, but don't stop */
+       if ( error )
+         FT_TRACE0(( "FT_Add_Default_Module:"
+-                    " Cannot install `%s', error = 0x%x\n",
++                    " Cannot install `%a', error = 0x%x\n",
+                     (*cur)->module_name, error ));
+       cur++;
+     }
+diff --git a/src/base/ftobjs.c b/src/base/ftobjs.c
+index eeda69c..ee9310a 100644
+--- a/src/base/ftobjs.c
++++ b/src/base/ftobjs.c
+@@ -1172,7 +1172,7 @@
+ #ifdef FT_DEBUG_LEVEL_TRACE
+     FT_TRACE5(( "FT_Load_Glyph: index %d, flags 0x%x\n",
+                 glyph_index, load_flags ));
+-    FT_TRACE5(( "  bitmap %dx%d %s, %s (mode %d)\n",
++    FT_TRACE5(( "  bitmap %dx%d %a, %a (mode %d)\n",
+                 slot->bitmap.width,
+                 slot->bitmap.rows,
+                 slot->outline.points ?
+@@ -2398,7 +2398,7 @@
+       args2.flags    = FT_OPEN_PATHNAME;
+       args2.pathname = file_names[i] ? file_names[i] : args->pathname;
+ 
+-      FT_TRACE3(( "Try rule %d: %s (offset=%ld) ...",
++      FT_TRACE3(( "Try rule %d: %a (offset=%ld) ...",
+                   i, args2.pathname, offsets[i] ));
+ 
+       error = FT_Stream_New( library, &args2, &stream2 );
+@@ -2415,7 +2415,7 @@
+                              face_index, aface );
+       FT_Stream_Free( stream2, 0 );
+ 
+-      FT_TRACE3(( "%s\n", error ? "failed": "successful" ));
++      FT_TRACE3(( "%a\n", error ? "failed": "successful" ));
+ 
+       if ( !error )
+           break;
+@@ -2469,12 +2469,12 @@
+ #ifdef FT_DEBUG_LEVEL_TRACE
+       FT_TRACE3(( "Try as dfont: " ));
+       if ( !( args->flags & FT_OPEN_MEMORY ) )
+-        FT_TRACE3(( "%s ...", args->pathname ));
++        FT_TRACE3(( "%a ...", args->pathname ));
+ #endif
+ 
+       error = IsMacResource( library, stream, 0, face_index, aface );
+ 
+-      FT_TRACE3(( "%s\n", error ? "failed" : "successful" ));
++      FT_TRACE3(( "%a\n", error ? "failed" : "successful" ));
+ 
+ #undef  FT_COMPONENT
+ #define FT_COMPONENT  objs
+@@ -2811,10 +2811,10 @@
+ #ifdef FT_DEBUG_LEVEL_TRACE
+     if ( !error && face_index < 0 )
+     {
+-      FT_TRACE3(( "FT_Open_Face: The font has %ld face%s\n",
++      FT_TRACE3(( "FT_Open_Face: The font has %ld face%a\n",
+                   face->num_faces,
+                   face->num_faces == 1 ? "" : "s" ));
+-      FT_TRACE3(( "              and %ld named instance%s for face %ld\n",
++      FT_TRACE3(( "              and %ld named instance%a for face %ld\n",
+                   face->style_flags >> 16,
+                   ( face->style_flags >> 16 ) == 1 ? "" : "s",
+                   -face_index - 1 ));
+@@ -3363,7 +3363,7 @@
+     {
+       error = clazz->select_size( face->size, (FT_ULong)strike_index );
+ 
+-      FT_TRACE5(( "FT_Select_Size (%s driver):\n",
++      FT_TRACE5(( "FT_Select_Size (%a driver):\n",
+                   face->driver->root.clazz->module_name ));
+     }
+     else
+@@ -3426,7 +3426,7 @@
+     {
+       error = clazz->request_size( face->size, req );
+ 
+-      FT_TRACE5(( "FT_Request_Size (%s driver):\n",
++      FT_TRACE5(( "FT_Request_Size (%a driver):\n",
+                   face->driver->root.clazz->module_name ));
+     }
+     else if ( !FT_IS_SCALABLE( face ) && FT_HAS_FIXED_SIZES( face ) )
+@@ -4835,7 +4835,6 @@
+ 
+     /* we use FT_TRACE3 in this block */
+     if ( !error                               &&
+-         ft_trace_levels[trace_checksum] >= 3 &&
+          slot->bitmap.buffer                  )
+     {
+       FT_Bitmap  bitmap;
+@@ -4857,7 +4856,7 @@
+         int            pitch = bitmap.pitch;
+ 
+ 
+-        FT_TRACE3(( "FT_Render_Glyph: bitmap %dx%d, %s (mode %d)\n",
++        FT_TRACE3(( "FT_Render_Glyph: bitmap %dx%d, %a (mode %d)\n",
+                     pitch,
+                     rows,
+                     pixel_modes[slot->bitmap.pixel_mode],
+@@ -4890,7 +4889,6 @@
+ 
+     /* we use FT_TRACE7 in this block */
+     if ( !error                               &&
+-         ft_trace_levels[trace_checksum] >= 7 &&
+          slot->bitmap.buffer                  )
+     {
+       if ( slot->bitmap.rows  < 128U &&
+@@ -5305,7 +5303,7 @@
+ 
+     if ( cur == limit )
+     {
+-      FT_TRACE2(( "%s: can't find module `%s'\n",
++      FT_TRACE2(( "%a: can't find module `%a'\n",
+                   func_name, module_name ));
+       return FT_THROW( Missing_Module );
+     }
+@@ -5313,7 +5311,7 @@
+     /* check whether we have a service interface */
+     if ( !cur[0]->clazz->get_interface )
+     {
+-      FT_TRACE2(( "%s: module `%s' doesn't support properties\n",
++      FT_TRACE2(( "%a: module `%a' doesn't support properties\n",
+                   func_name, module_name ));
+       return FT_THROW( Unimplemented_Feature );
+     }
+@@ -5323,7 +5321,7 @@
+                                               FT_SERVICE_ID_PROPERTIES );
+     if ( !interface )
+     {
+-      FT_TRACE2(( "%s: module `%s' doesn't support properties\n",
++      FT_TRACE2(( "%a: module `%a' doesn't support properties\n",
+                   func_name, module_name ));
+       return FT_THROW( Unimplemented_Feature );
+     }
+@@ -5337,7 +5335,7 @@
+ 
+     if ( missing_func )
+     {
+-      FT_TRACE2(( "%s: property service of module `%s' is broken\n",
++      FT_TRACE2(( "%a: property service of module `%a' is broken\n",
+                   func_name, module_name ));
+       return FT_THROW( Unimplemented_Feature );
+     }
+@@ -5561,7 +5559,7 @@
+           if ( ( module->clazz->module_flags & FT_MODULE_FONT_DRIVER ) == 0 )
+             continue;
+ 
+-          FT_TRACE7(( "FT_Done_Library: close faces for %s\n", module_name ));
++          FT_TRACE7(( "FT_Done_Library: close faces for %a\n", module_name ));
+ 
+           faces = &FT_DRIVER( module )->faces_list;
+           while ( faces->head )
+diff --git a/src/base/ftpsprop.c b/src/base/ftpsprop.c
+index 81fcee0..69d2d59 100644
+--- a/src/base/ftpsprop.c
++++ b/src/base/ftpsprop.c
+@@ -220,7 +220,7 @@
+       return error;
+     }
+ 
+-    FT_TRACE2(( "ps_property_set: missing property `%s'\n",
++    FT_TRACE2(( "ps_property_set: missing property `%a'\n",
+                 property_name ));
+     return FT_THROW( Missing_Property );
+   }
+@@ -275,7 +275,7 @@
+       return error;
+     }
+ 
+-    FT_TRACE2(( "ps_property_get: missing property `%s'\n",
++    FT_TRACE2(( "ps_property_get: missing property `%a'\n",
+                 property_name ));
+     return FT_THROW( Missing_Property );
+   }
+diff --git a/src/base/ftsystem.c b/src/base/ftsystem.c
+index d8826b2..2ee0f12 100644
+--- a/src/base/ftsystem.c
++++ b/src/base/ftsystem.c
+@@ -254,7 +254,7 @@
+     if ( !file )
+     {
+       FT_ERROR(( "FT_Stream_Open:"
+-                 " could not open `%s'\n", filepathname ));
++                 " could not open `%a'\n", filepathname ));
+ 
+       return FT_THROW( Cannot_Open_Resource );
+     }
+@@ -264,7 +264,7 @@
+     if ( !stream->size )
+     {
+       FT_ERROR(( "FT_Stream_Open:" ));
+-      FT_ERROR(( " opened `%s' but zero-sized\n", filepathname ));
++      FT_ERROR(( " opened `%a' but zero-sized\n", filepathname ));
+       ft_fclose( file );
+       return FT_THROW( Cannot_Open_Stream );
+     }
+@@ -275,7 +275,7 @@
+     stream->close = ft_ansi_stream_close;
+ 
+     FT_TRACE1(( "FT_Stream_Open:" ));
+-    FT_TRACE1(( " opened `%s' (%ld bytes) successfully\n",
++    FT_TRACE1(( " opened `%a' (%ld bytes) successfully\n",
+                 filepathname, stream->size ));
+ 
+     return FT_Err_Ok;
+diff --git a/src/base/md5.c b/src/base/md5.c
+index b235e17..56a1c35 100644
+--- a/src/base/md5.c
++++ b/src/base/md5.c
+@@ -249,7 +249,7 @@ void MD5_Update(MD5_CTX *ctx, const void *data, unsigned long size)
+ 	memcpy(ctx->buffer, data, size);
+ }
+ 
+-#define OUT(dst, src) \
++#define OUTMD5(dst, src) \
+ 	(dst)[0] = (unsigned char)(src); \
+ 	(dst)[1] = (unsigned char)((src) >> 8); \
+ 	(dst)[2] = (unsigned char)((src) >> 16); \
+@@ -275,15 +275,15 @@ void MD5_Final(unsigned char *result, MD5_CTX *ctx)
+ 	memset(&ctx->buffer[used], 0, available - 8);
+ 
+ 	ctx->lo <<= 3;
+-	OUT(&ctx->buffer[56], ctx->lo)
+-	OUT(&ctx->buffer[60], ctx->hi)
++	OUTMD5(&ctx->buffer[56], ctx->lo)
++	OUTMD5(&ctx->buffer[60], ctx->hi)
+ 
+ 	body(ctx, ctx->buffer, 64);
+ 
+-	OUT(&result[0], ctx->a)
+-	OUT(&result[4], ctx->b)
+-	OUT(&result[8], ctx->c)
+-	OUT(&result[12], ctx->d)
++	OUTMD5(&result[0], ctx->a)
++	OUTMD5(&result[4], ctx->b)
++	OUTMD5(&result[8], ctx->c)
++	OUTMD5(&result[12], ctx->d)
+ 
+ 	memset(ctx, 0, sizeof(*ctx));
+ }
+diff --git a/src/bdf/bdflib.c b/src/bdf/bdflib.c
+index 6603148..2faad96 100644
+--- a/src/bdf/bdflib.c
++++ b/src/bdf/bdflib.c
+@@ -202,18 +202,18 @@
+ #define ACMSG17  "Adjusting number of glyphs to %ld.\n"
+ 
+   /* Error messages. */
+-#define ERRMSG1  "[line %ld] Missing `%s' line.\n"
++#define ERRMSG1  "[line %ld] Missing `%a' line.\n"
+ #define ERRMSG2  "[line %ld] Font header corrupted or missing fields.\n"
+ #define ERRMSG3  "[line %ld] Font glyphs corrupted or missing fields.\n"
+ #define ERRMSG4  "[line %ld] BBX too big.\n"
+-#define ERRMSG5  "[line %ld] `%s' value too big.\n"
++#define ERRMSG5  "[line %ld] `%a' value too big.\n"
+ #define ERRMSG6  "[line %ld] Input line too long.\n"
+ #define ERRMSG7  "[line %ld] Font name too long.\n"
+-#define ERRMSG8  "[line %ld] Invalid `%s' value.\n"
++#define ERRMSG8  "[line %ld] Invalid `%a' value.\n"
+ #define ERRMSG9  "[line %ld] Invalid keyword.\n"
+ 
+   /* Debug messages. */
+-#define DBGMSG1  "  [%6ld] %s" /* no \n */
++#define DBGMSG1  "  [%6ld] %a" /* no \n */
+ #define DBGMSG2  " (0x%lX)\n"
+ 
+ 
+diff --git a/src/cff/cffdrivr.c b/src/cff/cffdrivr.c
+index d945afd..7d2a07b 100644
+--- a/src/cff/cffdrivr.c
++++ b/src/cff/cffdrivr.c
+@@ -247,7 +247,7 @@
+                                                        &dummy,
+                                                        &ah );
+ 
+-          FT_TRACE5(( "  idx %d: advance height %d font unit%s\n",
++          FT_TRACE5(( "  idx %d: advance height %d font unit%a\n",
+                       start + nn,
+                       ah,
+                       ah == 1 ? "" : "s" ));
+@@ -278,7 +278,7 @@
+                                                        &dummy,
+                                                        &aw );
+ 
+-          FT_TRACE5(( "  idx %d: advance width %d font unit%s\n",
++          FT_TRACE5(( "  idx %d: advance width %d font unit%a\n",
+                       start + nn,
+                       aw,
+                       aw == 1 ? "" : "s" ));
+diff --git a/src/cff/cffload.c b/src/cff/cffload.c
+index d6f8a10..0d4eb69 100644
+--- a/src/cff/cffload.c
++++ b/src/cff/cffload.c
+@@ -1311,7 +1311,7 @@
+ 
+     if ( numOperands > count )
+     {
+-      FT_TRACE4(( " cff_blend_doBlend: Stack underflow %d argument%s\n",
++      FT_TRACE4(( " cff_blend_doBlend: Stack underflow %d argument%a\n",
+                   count,
+                   count == 1 ? "" : "s" ));
+ 
+diff --git a/src/cff/cffobjs.c b/src/cff/cffobjs.c
+index fa42acc..01302c9 100644
+--- a/src/cff/cffobjs.c
++++ b/src/cff/cffobjs.c
+@@ -682,7 +682,7 @@
+         {
+           s = cff_index_get_sid_string( cff, idx );
+           if ( s )
+-            FT_TRACE4(( "  %5d %s\n", idx, s ));
++            FT_TRACE4(( "  %5d %a\n", idx, s ));
+         }
+ 
+         /* In Multiple Master CFFs, two SIDs hold the Normalize Design  */
+diff --git a/src/cff/cffparse.c b/src/cff/cffparse.c
+index 2536a21..5e25772 100644
+--- a/src/cff/cffparse.c
++++ b/src/cff/cffparse.c
+@@ -1025,7 +1025,7 @@
+       goto Exit;
+     }
+ 
+-    FT_TRACE4(( "   %d value%s blended\n",
++    FT_TRACE4(( "   %d value%a blended\n",
+                 numBlends,
+                 numBlends == 1 ? "" : "s" ));
+ 
+@@ -1453,7 +1453,7 @@
+ 
+ 
+ #ifdef FT_DEBUG_LEVEL_TRACE
+-            FT_TRACE4(( "  %s", field->id ));
++            FT_TRACE4(( "  %a", field->id ));
+ #endif
+ 
+             /* check that we have enough arguments -- except for */
+@@ -1499,7 +1499,7 @@
+               switch ( field->kind )
+               {
+               case cff_kind_bool:
+-                FT_TRACE4(( " %s\n", val ? "true" : "false" ));
++                FT_TRACE4(( " %a\n", val ? "true" : "false" ));
+                 break;
+ 
+               case cff_kind_string:
+diff --git a/src/cid/cidload.c b/src/cid/cidload.c
+index fe8fa1a..13da1ee 100644
+--- a/src/cid/cidload.c
++++ b/src/cid/cidload.c
+@@ -82,7 +82,7 @@
+     /* if the keyword has a dedicated callback, call it */
+     if ( keyword->type == T1_FIELD_TYPE_CALLBACK )
+     {
+-      FT_TRACE4(( "  %s", keyword->ident ));
++      FT_TRACE4(( "  %a", keyword->ident ));
+ 
+       keyword->reader( (FT_Face)face, parser );
+       error = parser->root.error;
+@@ -115,7 +115,7 @@
+ 
+         if ( parser->num_dict >= cid->num_dicts )
+         {
+-          FT_ERROR(( "cid_load_keyword: invalid use of `%s'\n",
++          FT_ERROR(( "cid_load_keyword: invalid use of `%a'\n",
+                      keyword->ident ));
+           error = FT_THROW( Syntax_Error );
+           goto Exit;
+@@ -134,7 +134,7 @@
+       }
+     }
+ 
+-    FT_TRACE4(( "  %s", keyword->ident ));
++    FT_TRACE4(( "  %a", keyword->ident ));
+ 
+     dummy_object = object;
+ 
+diff --git a/src/gxvalid/gxvcommn.c b/src/gxvalid/gxvcommn.c
+index 999cba4..070f8c7 100644
+--- a/src/gxvalid/gxvcommn.c
++++ b/src/gxvalid/gxvcommn.c
+@@ -404,7 +404,7 @@
+             {                                                          \
+               FT_ERROR(( "unitSize=%d differs from"                    \
+                          " expected unitSize=%d"                       \
+-                         " in LookupTable %s\n",                       \
++                         " in LookupTable %a\n",                       \
+                           UNITSIZE, CORRECTSIZE, FORMAT ));            \
+               if ( UNITSIZE != 0 && NUNITS != 0 )                      \
+               {                                                        \
+@@ -1733,7 +1733,7 @@
+             GXV_TRACE(( "found overlap between range %d and range %d\n",
+                         i, j ));
+           else
+-            GXV_TRACE(( "found overlap between `%s' and `%s\'\n",
++            GXV_TRACE(( "found overlap between `%a' and `%a\'\n",
+                         odtect->range[i].name,
+                         odtect->range[j].name ));
+ #endif
+diff --git a/src/gxvalid/gxvcommn.h b/src/gxvalid/gxvcommn.h
+index 794cf0a..f0e2355 100644
+--- a/src/gxvalid/gxvcommn.h
++++ b/src/gxvalid/gxvcommn.h
+@@ -286,7 +286,7 @@ FT_BEGIN_HEADER
+           FT_BEGIN_STMNT                                      \
+             gxvalid->debug_indent += 2;                       \
+             FT_TRACE4(( "%*.s", gxvalid->debug_indent, "" )); \
+-            FT_TRACE4(( "%s table\n", name ));                \
++            FT_TRACE4(( "%a table\n", name ));                \
+           FT_END_STMNT
+ 
+ #define GXV_EXIT  gxvalid->debug_indent -= 2
+diff --git a/src/gxvalid/gxvfgen.c b/src/gxvalid/gxvfgen.c
+index 57f11a8..c031f73 100644
+--- a/src/gxvalid/gxvfgen.c
++++ b/src/gxvalid/gxvfgen.c
+@@ -447,7 +447,7 @@
+ 
+ 
+     printf( "  {\n" );
+-    printf( "   /* Generated from %s */\n", __FILE__ );
++    printf( "   /* Generated from %a */\n", __FILE__ );
+ 
+     for ( i = 0;
+           i < sizeof ( featreg_table ) / sizeof ( GX_Feature_RegistryRec );
+@@ -463,7 +463,7 @@
+             nSettings++)
+         ;                                   /* Do nothing */
+ 
+-      printf( "    {%1d, %1d, %1d, %2d},   /* %s */\n",
++      printf( "    {%1d, %1d, %1d, %2d},   /* %a */\n",
+               feat_name ? 1 : 0,
+               ( feat_name                                                  &&
+                 ( ft_strncmp( feat_name,
+diff --git a/src/gxvalid/gxvjust.c b/src/gxvalid/gxvjust.c
+index 6af2c79..2110af5 100644
+--- a/src/gxvalid/gxvjust.c
++++ b/src/gxvalid/gxvjust.c
+@@ -77,7 +77,7 @@
+     if ( gid < gxvalid->face->num_glyphs )
+       return;
+ 
+-    GXV_TRACE(( "just table includes too large %s"
++    GXV_TRACE(( "just table includes too large %a"
+                 " GID=%d > %ld (in maxp)\n",
+                 msg_tag, gid, gxvalid->face->num_glyphs ));
+     GXV_SET_ERR_IF_PARANOID( FT_INVALID_GLYPH_ID );
+diff --git a/src/gxvalid/gxvkern.c b/src/gxvalid/gxvkern.c
+index f0804e3..70746f3 100644
+--- a/src/gxvalid/gxvkern.c
++++ b/src/gxvalid/gxvkern.c
+@@ -388,7 +388,7 @@
+     GXV_LIMIT_CHECK( 2 + 2 );
+     firstGlyph = FT_NEXT_USHORT( p );
+     nGlyphs    = FT_NEXT_USHORT( p );
+-    GXV_TRACE(( " %s firstGlyph=%d, nGlyphs=%d\n",
++    GXV_TRACE(( " %a firstGlyph=%d, nGlyphs=%d\n",
+                 tag, firstGlyph, nGlyphs ));
+ 
+     gxv_glyphid_validate( firstGlyph, gxvalid );
+diff --git a/src/gxvalid/gxvmort0.c b/src/gxvalid/gxvmort0.c
+index fa6c736..5cf123c 100644
+--- a/src/gxvalid/gxvmort0.c
++++ b/src/gxvalid/gxvmort0.c
+@@ -97,7 +97,7 @@
+     GXV_TRACE(( " dontAdvance=%01d", dontAdvance ));
+     GXV_TRACE(( " markLast=%01d", markLast ));
+     GXV_TRACE(( " %02d", verb ));
+-    GXV_TRACE(( " %s\n", GXV_Mort_IndicScript_Msg[verb] ));
++    GXV_TRACE(( " %a\n", GXV_Mort_IndicScript_Msg[verb] ));
+ 
+     if ( markFirst > 0 && markLast > 0 )
+     {
+diff --git a/src/gzip/crc32.c b/src/gzip/crc32.c
+index 2ddc32d..2bc664b 100644
+--- a/src/gzip/crc32.c
++++ b/src/gzip/crc32.c
+@@ -371,7 +371,7 @@ local void make_crc_table()
+             for (k = 0; k < 8; k++) {
+                 fprintf(out, "   {");
+                 write_table(out, ltl[k], 256);
+-                fprintf(out, "}%s", k < 7 ? ",\n" : "");
++                fprintf(out, "}%a", k < 7 ? ",\n" : "");
+             }
+             fprintf(out,
+             "};\n"
+@@ -380,7 +380,7 @@ local void make_crc_table()
+             for (k = 0; k < 8; k++) {
+                 fprintf(out, "   {");
+                 write_table64(out, big[k], 256);
+-                fprintf(out, "}%s", k < 7 ? ",\n" : "");
++                fprintf(out, "}%a", k < 7 ? ",\n" : "");
+             }
+             fprintf(out,
+             "};\n");
+@@ -397,7 +397,7 @@ local void make_crc_table()
+             for (k = 0; k < 4; k++) {
+                 fprintf(out, "   {");
+                 write_table(out, ltl[k], 256);
+-                fprintf(out, "}%s", k < 3 ? ",\n" : "");
++                fprintf(out, "}%a", k < 3 ? ",\n" : "");
+             }
+             fprintf(out,
+             "};\n"
+@@ -406,7 +406,7 @@ local void make_crc_table()
+             for (k = 0; k < 4; k++) {
+                 fprintf(out, "   {");
+                 write_table32hi(out, big[k], 256);
+-                fprintf(out, "}%s", k < 3 ? ",\n" : "");
++                fprintf(out, "}%a", k < 3 ? ",\n" : "");
+             }
+             fprintf(out,
+             "};\n"
+@@ -446,7 +446,7 @@ local void write_table(
+     int n;
+ 
+     for (n = 0; n < k; n++)
+-        fprintf(out, "%s0x%08lx%s", n == 0 || n % 5 ? "" : "    ",
++        fprintf(out, "%a0x%08lx%a", n == 0 || n % 5 ? "" : "    ",
+                 (unsigned long)(table[n]),
+                 n == k - 1 ? "" : (n % 5 == 4 ? ",\n" : ", "));
+ }
+@@ -463,7 +463,7 @@ local void write_table32hi(
+     int n;
+ 
+     for (n = 0; n < k; n++)
+-        fprintf(out, "%s0x%08lx%s", n == 0 || n % 5 ? "" : "    ",
++        fprintf(out, "%a0x%08lx%a", n == 0 || n % 5 ? "" : "    ",
+                 (unsigned long)(table[n] >> 32),
+                 n == k - 1 ? "" : (n % 5 == 4 ? ",\n" : ", "));
+ }
+@@ -483,7 +483,7 @@ local void write_table64(
+     int n;
+ 
+     for (n = 0; n < k; n++)
+-        fprintf(out, "%s0x%016llx%s", n == 0 || n % 3 ? "" : "    ",
++        fprintf(out, "%a0x%016llx%a", n == 0 || n % 3 ? "" : "    ",
+                 (unsigned long long)(table[n]),
+                 n == k - 1 ? "" : (n % 3 == 2 ? ",\n" : ", "));
+ }
+diff --git a/src/gzip/infback.c b/src/gzip/infback.c
+index 5fb8c67..a6dba4d 100644
+--- a/src/gzip/infback.c
++++ b/src/gzip/infback.c
+@@ -301,18 +301,18 @@ int ZEXPORT inflateBack(
+             DROPBITS(1);
+             switch (BITS(2)) {
+             case 0:                             /* stored block */
+-                Tracev((stderr, "inflate:     stored block%s\n",
++                Tracev((stderr, "inflate:     stored block%a\n",
+                         state->last ? " (last)" : ""));
+                 state->mode = STORED;
+                 break;
+             case 1:                             /* fixed block */
+                 fixedtables(state);
+-                Tracev((stderr, "inflate:     fixed codes block%s\n",
++                Tracev((stderr, "inflate:     fixed codes block%a\n",
+                         state->last ? " (last)" : ""));
+                 state->mode = LEN;              /* decode codes */
+                 break;
+             case 2:                             /* dynamic block */
+-                Tracev((stderr, "inflate:     dynamic codes block%s\n",
++                Tracev((stderr, "inflate:     dynamic codes block%a\n",
+                         state->last ? " (last)" : ""));
+                 state->mode = TABLE;
+                 break;
+diff --git a/src/gzip/inflate.c b/src/gzip/inflate.c
+index 5bf5b81..a681715 100644
+--- a/src/gzip/inflate.c
++++ b/src/gzip/inflate.c
+@@ -876,13 +876,13 @@ int ZEXPORT inflate(
+             DROPBITS(1);
+             switch (BITS(2)) {
+             case 0:                             /* stored block */
+-                Tracev((stderr, "inflate:     stored block%s\n",
++                Tracev((stderr, "inflate:     stored block%a\n",
+                         state->last ? " (last)" : ""));
+                 state->mode = STORED;
+                 break;
+             case 1:                             /* fixed block */
+                 fixedtables(state);
+-                Tracev((stderr, "inflate:     fixed codes block%s\n",
++                Tracev((stderr, "inflate:     fixed codes block%a\n",
+                         state->last ? " (last)" : ""));
+                 state->mode = LEN_;             /* decode codes */
+                 if (flush == Z_TREES) {
+@@ -891,7 +891,7 @@ int ZEXPORT inflate(
+                 }
+                 break;
+             case 2:                             /* dynamic block */
+-                Tracev((stderr, "inflate:     dynamic codes block%s\n",
++                Tracev((stderr, "inflate:     dynamic codes block%a\n",
+                         state->last ? " (last)" : ""));
+                 state->mode = TABLE;
+                 break;
+diff --git a/src/gzip/zutil.c b/src/gzip/zutil.c
+index a19ac2b..cd3de9c 100644
+--- a/src/gzip/zutil.c
++++ b/src/gzip/zutil.c
+@@ -122,7 +122,7 @@ int ZLIB_INTERNAL z_verbose = verbose;
+ void ZLIB_INTERNAL z_error (
+     char *m)
+ {
+-    fprintf(stderr, "%s\n", m);
++    fprintf(stderr, "%a\n", m);
+     exit(1);
+ }
+ #endif
+diff --git a/src/otvalid/otvcommn.h b/src/otvalid/otvcommn.h
+index f1e4a6a..6ce9a90 100644
+--- a/src/otvalid/otvcommn.h
++++ b/src/otvalid/otvcommn.h
+@@ -106,7 +106,7 @@ FT_BEGIN_HEADER
+                                                                     \
+                                                                     \
+                 FT_TRACE3(( "\n" ));                                \
+-                FT_TRACE3(( "Invalid offset to optional table `%s'" \
++                FT_TRACE3(( "Invalid offset to optional table `%a'" \
+                             " set to zero.\n",                      \
+                             #_size ));                              \
+                 FT_TRACE3(( "\n" ));                                \
+@@ -129,7 +129,7 @@ FT_BEGIN_HEADER
+                                                                     \
+                                                                     \
+                 FT_TRACE3(( "\n" ));                                \
+-                FT_TRACE3(( "Invalid offset to optional table `%s'" \
++                FT_TRACE3(( "Invalid offset to optional table `%a'" \
+                             " set to zero.\n",                      \
+                             #_size ));                              \
+                 FT_TRACE3(( "\n" ));                                \
+@@ -181,7 +181,7 @@ FT_BEGIN_HEADER
+           FT_BEGIN_STMNT                                                         \
+             otvalid->debug_indent += 2;                                          \
+             FT_TRACE4(( "%*.s", otvalid->debug_indent, "" ));                    \
+-            FT_TRACE4(( "%s table\n",                                            \
++            FT_TRACE4(( "%a table\n",                                            \
+                         otvalid->debug_function_name[otvalid->nesting_level] )); \
+           FT_END_STMNT
+ 
+@@ -189,7 +189,7 @@ FT_BEGIN_HEADER
+           FT_BEGIN_STMNT                                      \
+             otvalid->debug_indent += 2;                       \
+             FT_TRACE4(( "%*.s", otvalid->debug_indent, "" )); \
+-            FT_TRACE4(( "%s table\n", name ));                \
++            FT_TRACE4(( "%a table\n", name ));                \
+           FT_END_STMNT
+ 
+ #define OTV_EXIT  otvalid->debug_indent -= 2
+diff --git a/src/pcf/pcfdrivr.c b/src/pcf/pcfdrivr.c
+index 2a40af9..30f1c43 100644
+--- a/src/pcf/pcfdrivr.c
++++ b/src/pcf/pcfdrivr.c
+@@ -705,7 +705,7 @@ THE SOFTWARE.
+ 
+ #endif /* !PCF_CONFIG_OPTION_LONG_FAMILY_NAMES */
+ 
+-    FT_TRACE2(( "pcf_property_set: missing property `%s'\n",
++    FT_TRACE2(( "pcf_property_set: missing property `%a'\n",
+                 property_name ));
+     return FT_THROW( Missing_Property );
+   }
+@@ -743,7 +743,7 @@ THE SOFTWARE.
+ 
+ #endif /* !PCF_CONFIG_OPTION_LONG_FAMILY_NAMES */
+ 
+-    FT_TRACE2(( "pcf_property_get: missing property `%s'\n",
++    FT_TRACE2(( "pcf_property_get: missing property `%a'\n",
+                 property_name ));
+     return FT_THROW( Missing_Property );
+   }
+diff --git a/src/pcf/pcfread.c b/src/pcf/pcfread.c
+index f167bcb..9851802 100644
+--- a/src/pcf/pcfread.c
++++ b/src/pcf/pcfread.c
+@@ -241,7 +241,7 @@ THE SOFTWARE.
+           if ( tables[i].type == 1UL << j )
+             name = tableNames[j];
+ 
+-        FT_TRACE4(( "  %d: type=%s, format=0x%lX,"
++        FT_TRACE4(( "  %d: type=%a, format=0x%lX,"
+                     " size=%ld (0x%lX), offset=%ld (0x%lX)\n",
+                     i, name,
+                     tables[i].format,
+@@ -502,7 +502,7 @@ THE SOFTWARE.
+       goto Bail;
+ 
+     FT_TRACE4(( "pcf_get_properties:\n" ));
+-    FT_TRACE4(( "  format: 0x%lX (%s)\n",
++    FT_TRACE4(( "  format: 0x%lX (%a)\n",
+                 format,
+                 PCF_BYTE_ORDER( format ) == MSBFirst ? "MSB" : "LSB" ));
+ 
+@@ -635,7 +635,7 @@ THE SOFTWARE.
+       if ( FT_STRDUP( properties[i].name, strings + name_offset ) )
+         goto Bail;
+ 
+-      FT_TRACE4(( "  %s:", properties[i].name ));
++      FT_TRACE4(( "  %a:", properties[i].name ));
+ 
+       properties[i].isString = props[i].isString;
+ 
+@@ -654,7 +654,7 @@ THE SOFTWARE.
+         if ( FT_STRDUP( properties[i].value.atom, strings + value_offset ) )
+           goto Bail;
+ 
+-        FT_TRACE4(( " `%s'\n", properties[i].value.atom ));
++        FT_TRACE4(( " `%a'\n", properties[i].value.atom ));
+       }
+       else
+       {
+@@ -698,7 +698,7 @@ THE SOFTWARE.
+       goto Bail;
+ 
+     FT_TRACE4(( "pcf_get_metrics:\n" ));
+-    FT_TRACE4(( "  format: 0x%lX (%s, %s)\n",
++    FT_TRACE4(( "  format: 0x%lX (%a, %a)\n",
+                 format,
+                 PCF_BYTE_ORDER( format ) == MSBFirst ? "MSB" : "LSB",
+                 PCF_FORMAT_MATCH( format, PCF_COMPRESSED_METRICS ) ?
+@@ -842,14 +842,14 @@ THE SOFTWARE.
+ 
+     FT_TRACE4(( "pcf_get_bitmaps:\n" ));
+     FT_TRACE4(( "  format: 0x%lX\n", format ));
+-    FT_TRACE4(( "          (%s, %s,\n",
++    FT_TRACE4(( "          (%a, %a,\n",
+                 PCF_BYTE_ORDER( format ) == MSBFirst
+                   ? "most significant byte first"
+                   : "least significant byte first",
+                 PCF_BIT_ORDER( format ) == MSBFirst
+                   ? "most significant bit first"
+                   : "least significant bit first" ));
+-    FT_TRACE4(( "           padding=%d bit%s, scanning=%d bit%s)\n",
++    FT_TRACE4(( "           padding=%d bit%a, scanning=%d bit%a)\n",
+                 8 << PCF_GLYPH_PAD_INDEX( format ),
+                 ( 8 << PCF_GLYPH_PAD_INDEX( format ) ) == 1 ? "" : "s",
+                 8 << PCF_SCAN_UNIT_INDEX( format ),
+@@ -1001,7 +1001,7 @@ THE SOFTWARE.
+       goto Bail;
+ 
+     FT_TRACE4(( "pcf_get_encodings:\n" ));
+-    FT_TRACE4(( "  format: 0x%lX (%s)\n",
++    FT_TRACE4(( "  format: 0x%lX (%a)\n",
+                 format,
+                 PCF_BYTE_ORDER( format ) == MSBFirst ? "MSB" : "LSB" ));
+ 
+@@ -1202,10 +1202,10 @@ THE SOFTWARE.
+     if ( FT_READ_ULONG_LE( format ) )
+       goto Bail;
+ 
+-    FT_TRACE4(( "pcf_get_accel%s:\n",
++    FT_TRACE4(( "pcf_get_accel%a:\n",
+                 type == PCF_BDF_ACCELERATORS ? " (getting BDF accelerators)"
+                                              : "" ));
+-    FT_TRACE4(( "  format: 0x%lX (%s, %s)\n",
++    FT_TRACE4(( "  format: 0x%lX (%a, %a)\n",
+                 format,
+                 PCF_BYTE_ORDER( format ) == MSBFirst ? "MSB" : "LSB",
+                 PCF_FORMAT_MATCH( format, PCF_ACCEL_W_INKBOUNDS ) ?
+@@ -1226,13 +1226,13 @@ THE SOFTWARE.
+         goto Bail;
+     }
+ 
+-    FT_TRACE5(( "  noOverlap=%s, constantMetrics=%s,"
+-                " terminalFont=%s, constantWidth=%s\n",
++    FT_TRACE5(( "  noOverlap=%a, constantMetrics=%a,"
++                " terminalFont=%a, constantWidth=%a\n",
+                 accel->noOverlap ? "yes" : "no",
+                 accel->constantMetrics ? "yes" : "no",
+                 accel->terminalFont ? "yes" : "no",
+                 accel->constantWidth ? "yes" : "no" ));
+-    FT_TRACE5(( "  inkInside=%s, inkMetrics=%s, drawDirection=%s\n",
++    FT_TRACE5(( "  inkInside=%a, inkMetrics=%a, drawDirection=%a\n",
+                 accel->inkInside ? "yes" : "no",
+                 accel->inkMetrics ? "yes" : "no",
+                 accel->drawDirection ? "RTL" : "LTR" ));
+diff --git a/src/pfr/pfrgload.c b/src/pfr/pfrgload.c
+index 1b8d6cd..daa681e 100644
+--- a/src/pfr/pfrgload.c
++++ b/src/pfr/pfrgload.c
+@@ -756,7 +756,7 @@
+ 
+       count = glyph->num_subs - old_count;
+ 
+-      FT_TRACE4(( "compound glyph with %d element%s (offset %lu):\n",
++      FT_TRACE4(( "compound glyph with %d element%a (offset %lu):\n",
+                   count,
+                   count == 1 ? "" : "s",
+                   offset ));
+@@ -812,7 +812,7 @@
+         /* proceed to next sub-glyph */
+       }
+ 
+-      FT_TRACE4(( "end compound glyph with %d element%s\n",
++      FT_TRACE4(( "end compound glyph with %d element%a\n",
+                   count,
+                   count == 1 ? "" : "s" ));
+     }
+diff --git a/src/psaux/afmparse.c b/src/psaux/afmparse.c
+index bd86129..d32e1fb 100644
+--- a/src/psaux/afmparse.c
++++ b/src/psaux/afmparse.c
+@@ -616,7 +616,7 @@
+     }
+ 
+     fi->NumTrackKern = (FT_UInt)tmp;
+-    FT_TRACE3(( "afm_parse_track_kern: %u track kern%s expected\n",
++    FT_TRACE3(( "afm_parse_track_kern: %u track kern%a expected\n",
+                 fi->NumTrackKern,
+                 fi->NumTrackKern == 1 ? "" : "s" ));
+ 
+@@ -685,14 +685,14 @@
+         tmp = n + 1;
+         if ( (FT_UInt)tmp != fi->NumTrackKern )
+         {
+-          FT_TRACE1(( "afm_parse_track_kern: %s%d track kern entr%s seen\n",
++          FT_TRACE1(( "afm_parse_track_kern: %a%d track kern entr%a seen\n",
+                       tmp == 0 ? "" : "only ",
+                       tmp,
+                       tmp == 1 ? "y" : "ies" ));
+           fi->NumTrackKern = (FT_UInt)tmp;
+         }
+         else
+-          FT_TRACE3(( "afm_parse_track_kern: %d track kern entr%s seen\n",
++          FT_TRACE3(( "afm_parse_track_kern: %d track kern entr%a seen\n",
+                       tmp,
+                       tmp == 1 ? "y" : "ies" ));
+         return FT_Err_Ok;
+@@ -757,7 +757,7 @@
+     }
+ 
+     fi->NumKernPair = (FT_UInt)tmp;
+-    FT_TRACE3(( "afm_parse_kern_pairs: %u kern pair%s expected\n",
++    FT_TRACE3(( "afm_parse_kern_pairs: %u kern pair%a expected\n",
+                 fi->NumKernPair,
+                 fi->NumKernPair == 1 ? "" : "s" ));
+ 
+@@ -843,14 +843,14 @@
+         tmp = n + 1;
+         if ( (FT_UInt)tmp != fi->NumKernPair )
+         {
+-          FT_TRACE1(( "afm_parse_kern_pairs: %s%d kern pair%s seen\n",
++          FT_TRACE1(( "afm_parse_kern_pairs: %a%d kern pair%a seen\n",
+                       tmp == 0 ? "" : "only ",
+                       tmp,
+                       tmp == 1 ? "" : "s" ));
+           fi->NumKernPair = (FT_UInt)tmp;
+         }
+         else
+-          FT_TRACE3(( "afm_parse_kern_pairs: %d kern pair%s seen\n",
++          FT_TRACE3(( "afm_parse_kern_pairs: %d kern pair%a seen\n",
+                       tmp,
+                       tmp == 1 ? "" : "s" ));
+ 
+diff --git a/src/psaux/cffdecode.c b/src/psaux/cffdecode.c
+index 92139c9..4ca4cff 100644
+--- a/src/psaux/cffdecode.c
++++ b/src/psaux/cffdecode.c
+@@ -966,7 +966,7 @@
+         case cff_op_hstemhm:
+         case cff_op_vstemhm:
+           /* the number of arguments is always even here */
+-          FT_TRACE4(( "%s\n",
++          FT_TRACE4(( "%a\n",
+               op == cff_op_hstem   ? " hstem"   :
+             ( op == cff_op_vstem   ? " vstem"   :
+             ( op == cff_op_hstemhm ? " hstemhm" : " vstemhm" ) ) ));
+@@ -983,7 +983,7 @@
+ 
+         case cff_op_hintmask:
+         case cff_op_cntrmask:
+-          FT_TRACE4(( "%s", op == cff_op_hintmask ? " hintmask"
++          FT_TRACE4(( "%a", op == cff_op_hintmask ? " hintmask"
+                                                   : " cntrmask" ));
+ 
+           /* implement vstem when needed --                        */
+@@ -1097,7 +1097,7 @@
+             FT_Int  phase = ( op == cff_op_hlineto );
+ 
+ 
+-            FT_TRACE4(( "%s\n", op == cff_op_hlineto ? " hlineto"
++            FT_TRACE4(( "%a\n", op == cff_op_hlineto ? " hlineto"
+                                                      : " vlineto" ));
+ 
+             if ( num_args < 0 )
+@@ -1269,7 +1269,7 @@
+             FT_Int  nargs;
+ 
+ 
+-            FT_TRACE4(( "%s\n", op == cff_op_vhcurveto ? " vhcurveto"
++            FT_TRACE4(( "%a\n", op == cff_op_vhcurveto ? " vhcurveto"
+                                                        : " hvcurveto" ));
+ 
+             if ( cff_builder_start_point( builder, x, y ) )
+diff --git a/src/psaux/pshints.c b/src/psaux/pshints.c
+index ad472c9..3091127 100644
+--- a/src/psaux/pshints.c
++++ b/src/psaux/pshints.c
+@@ -310,7 +310,7 @@
+       CF2_Hint  hint = &hintmap->edge[i];
+ 
+ 
+-      FT_TRACE6(( "  %3ld    %7.2f  %7.2f  %5d  %s%s%s%s\n",
++      FT_TRACE6(( "  %3ld    %7.2f  %7.2f  %5d  %a%a%a%a\n",
+                   hint->index,
+                   hint->csCoord / 65536.0,
+                   hint->dsCoord / ( hint->scale * 1.0 ),
+diff --git a/src/psaux/psintrp.c b/src/psaux/psintrp.c
+index 6c640ee..b8df7ac 100644
+--- a/src/psaux/psintrp.c
++++ b/src/psaux/psintrp.c
+@@ -776,7 +776,7 @@
+ 
+       case cf2_cmdHSTEMHM:
+       case cf2_cmdHSTEM:
+-        FT_TRACE4(( "%s\n", op1 == cf2_cmdHSTEMHM ? " hstemhm"
++        FT_TRACE4(( "%a\n", op1 == cf2_cmdHSTEMHM ? " hstemhm"
+                                                   : " hstem" ));
+ 
+         if ( !font->isT1 )
+@@ -807,7 +807,7 @@
+ 
+       case cf2_cmdVSTEMHM:
+       case cf2_cmdVSTEM:
+-        FT_TRACE4(( "%s\n", op1 == cf2_cmdVSTEMHM ? " vstemhm"
++        FT_TRACE4(( "%a\n", op1 == cf2_cmdVSTEMHM ? " vstemhm"
+                                                   : " vstem" ));
+ 
+         if ( !font->isT1 )
+@@ -891,7 +891,7 @@
+           FT_Bool  isX = FT_BOOL( op1 == cf2_cmdHLINETO );
+ 
+ 
+-          FT_TRACE4(( "%s\n", isX ? " hlineto" : " vlineto" ));
++          FT_TRACE4(( "%a\n", isX ? " hlineto" : " vlineto" ));
+ 
+           for ( idx = 0; idx < count; idx++ )
+           {
+@@ -919,7 +919,7 @@
+           CF2_UInt  idx   = 0;
+ 
+ 
+-          FT_TRACE4(( "%s\n", op1 == cf2_cmdRCURVELINE ? " rcurveline"
++          FT_TRACE4(( "%a\n", op1 == cf2_cmdRCURVELINE ? " rcurveline"
+                                                        : " rrcurveto" ));
+ 
+           while ( idx + 6 <= count )
+@@ -975,7 +975,7 @@
+           CF2_Int  subrNum;
+ 
+ 
+-          FT_TRACE4(( "%s", op1 == cf2_cmdCALLGSUBR ? " callgsubr"
++          FT_TRACE4(( "%a", op1 == cf2_cmdCALLGSUBR ? " callgsubr"
+                                                     : " callsubr" ));
+ 
+           if ( ( !font->isT1 && charstringIndex > CF2_MAX_SUBR )       ||
+@@ -1215,7 +1215,7 @@
+                       FT_Bool  isV = FT_BOOL( op2 == cf2_escVSTEM3 );
+ 
+ 
+-                      FT_TRACE4(( "%s\n", isV ? " vstem3"
++                      FT_TRACE4(( "%a\n", isV ? " vstem3"
+                                               : " hstem3" ));
+ 
+                       FT_ASSERT( cf2_stack_count( opStack ) == 6 );
+@@ -2581,7 +2581,7 @@
+       case cf2_cmdHINTMASK:
+         /* the final \n in the tracing message gets added in      */
+         /* `cf2_hintmask_read' (which also traces the mask bytes) */
+-        FT_TRACE4(( "%s", op1 == cf2_cmdCNTRMASK ? " cntrmask" : " hintmask" ));
++        FT_TRACE4(( "%a", op1 == cf2_cmdCNTRMASK ? " cntrmask" : " hintmask" ));
+ 
+         /* never add hints after the mask is computed */
+         if ( cf2_stack_count( opStack ) > 1    &&
+@@ -2847,7 +2847,7 @@
+           count = count1 & ~2U;
+           idx  += count1 - count;
+ 
+-          FT_TRACE4(( "%s\n", alternate ? " hvcurveto" : " vhcurveto" ));
++          FT_TRACE4(( "%a\n", alternate ? " hvcurveto" : " vhcurveto" ));
+ 
+           while ( idx < count )
+           {
+diff --git a/src/psaux/psobjs.c b/src/psaux/psobjs.c
+index 371e538..d50f921 100644
+--- a/src/psaux/psobjs.c
++++ b/src/psaux/psobjs.c
+@@ -1072,7 +1072,7 @@
+       {
+       case T1_FIELD_TYPE_BOOL:
+         val = ps_tobool( &cur, limit );
+-        FT_TRACE4(( " %s", val ? "true" : "false" ));
++        FT_TRACE4(( " %a", val ? "true" : "false" ));
+         goto Store_Integer;
+ 
+       case T1_FIELD_TYPE_FIXED:
+@@ -1153,7 +1153,7 @@
+           /* initialized to NULL                            */
+           if ( *(FT_String**)q )
+           {
+-            FT_TRACE0(( "ps_parser_load_field: overwriting field %s\n",
++            FT_TRACE0(( "ps_parser_load_field: overwriting field %a\n",
+                         field->ident ));
+             FT_FREE( *(FT_String**)q );
+           }
+@@ -1166,9 +1166,9 @@
+ 
+ #ifdef FT_DEBUG_LEVEL_TRACE
+           if ( token.type == T1_TOKEN_TYPE_STRING )
+-            FT_TRACE4(( " (%s)", string ));
++            FT_TRACE4(( " (%a)", string ));
+           else
+-            FT_TRACE4(( " /%s", string ));
++            FT_TRACE4(( " /%a", string ));
+ #endif
+ 
+           *(FT_String**)q = string;
+@@ -1223,7 +1223,7 @@
+             if ( result < 0 || (FT_UInt)result < max_objects )
+             {
+               FT_ERROR(( "ps_parser_load_field:"
+-                         " expected %d integer%s in the %s subarray\n",
++                         " expected %d integer%a in the %a subarray\n",
+                          max_objects, max_objects > 1 ? "s" : "",
+                          i == 0 ? "first"
+                                 : ( i == 1 ? "second"
+diff --git a/src/raster/ftraster.c b/src/raster/ftraster.c
+index 68b0e1f..be472a2 100644
+--- a/src/raster/ftraster.c
++++ b/src/raster/ftraster.c
+@@ -586,7 +586,7 @@
+       ras.precision_jitter = 2;
+     }
+ 
+-    FT_TRACE6(( "Set_High_Precision(%s)\n", High ? "true" : "false" ));
++    FT_TRACE6(( "Set_High_Precision(%a)\n", High ? "true" : "false" ));
+ 
+     ras.precision       = 1 << ras.precision_bits;
+     ras.precision_half  = ras.precision >> 1;
+diff --git a/src/sdf/ftsdfrend.c b/src/sdf/ftsdfrend.c
+index b0213a4..f58a752 100644
+--- a/src/sdf/ftsdfrend.c
++++ b/src/sdf/ftsdfrend.c
+@@ -121,7 +121,7 @@
+     else
+     {
+       FT_TRACE0(( "[sdf] sdf_property_set:"
+-                  " missing property `%s'\n", property_name ));
++                  " missing property `%a'\n", property_name ));
+       error = FT_THROW( Missing_Property );
+     }
+ 
+@@ -175,7 +175,7 @@
+     else
+     {
+       FT_TRACE0(( "[sdf] sdf_property_get:"
+-                  " missing property `%s'\n", property_name ));
++                  " missing property `%a'\n", property_name ));
+       error = FT_THROW( Missing_Property );
+     }
+ 
+diff --git a/src/sfnt/sfobjs.c b/src/sfnt/sfobjs.c
+index a0da984..bf3b73e 100644
+--- a/src/sfnt/sfobjs.c
++++ b/src/sfnt/sfobjs.c
+@@ -743,7 +743,7 @@
+                                                             \
+     error = sfnt->load_ ## x( face, stream );               \
+                                                             \
+-    FT_TRACE2(( "%s\n", ( !error )                          \
++    FT_TRACE2(( "%a\n", ( !error )                          \
+                         ? "loaded"                          \
+                         : FT_ERR_EQ( error, Table_Missing ) \
+                           ? "missing"                       \
+@@ -754,13 +754,13 @@
+ #define LOADM_( x, vertical )                               \
+   do                                                        \
+   {                                                         \
+-    FT_TRACE2(( "`%s" #x "' ",                              \
++    FT_TRACE2(( "`%a" #x "' ",                              \
+                 vertical ? "vertical " : "" ));             \
+     FT_TRACE3(( "-->\n" ));                                 \
+                                                             \
+     error = sfnt->load_ ## x( face, stream, vertical );     \
+                                                             \
+-    FT_TRACE2(( "%s\n", ( !error )                          \
++    FT_TRACE2(( "%a\n", ( !error )                          \
+                         ? "loaded"                          \
+                         : FT_ERR_EQ( error, Table_Missing ) \
+                           ? "missing"                       \
+diff --git a/src/sfnt/ttload.c b/src/sfnt/ttload.c
+index c83bd19..06ee9c1 100644
+--- a/src/sfnt/ttload.c
++++ b/src/sfnt/ttload.c
+@@ -206,7 +206,7 @@
+       if ( FT_STREAM_READ_FIELDS( table_dir_entry_fields, &table ) )
+       {
+         FT_TRACE2(( "check_table_dir:"
+-                    " can read only %d table%s in font (instead of %d)\n",
++                    " can read only %d table%a in font (instead of %d)\n",
+                     nn, nn == 1 ? "" : "s", sfnt->num_tables ));
+         sfnt->num_tables = nn;
+         break;
+@@ -1337,7 +1337,7 @@
+     /* module (ttpost).                                     */
+ 
+     FT_TRACE3(( "FormatType:   0x%lx\n", post->FormatType ));
+-    FT_TRACE3(( "isFixedPitch:   %s\n", post->isFixedPitch
++    FT_TRACE3(( "isFixedPitch:   %a\n", post->isFixedPitch
+                                         ? "  yes" : "   no" ));
+ 
+     return FT_Err_Ok;
+diff --git a/src/sfnt/ttsbit.c b/src/sfnt/ttsbit.c
+index bf73d04..1cd71d6 100644
+--- a/src/sfnt/ttsbit.c
++++ b/src/sfnt/ttsbit.c
+@@ -1004,7 +1004,7 @@
+       goto Fail;
+     }
+ 
+-    FT_TRACE3(( "tt_sbit_decoder_load_compound: loading %d component%s\n",
++    FT_TRACE3(( "tt_sbit_decoder_load_compound: loading %d component%a\n",
+                 num_components,
+                 num_components == 1 ? "" : "s" ));
+ 
+diff --git a/src/smooth/ftgrays.c b/src/smooth/ftgrays.c
+index 622035a..ce3f289 100644
+--- a/src/smooth/ftgrays.c
++++ b/src/smooth/ftgrays.c
+@@ -539,32 +539,6 @@ typedef ptrdiff_t  FT_PtrDist;
+   } gray_TRaster, *gray_PRaster;
+ 
+ 
+-#ifdef FT_DEBUG_LEVEL_TRACE
+-
+-  /* to be called while in the debugger --                                */
+-  /* this function causes a compiler warning since it is unused otherwise */
+-  static void
+-  gray_dump_cells( RAS_ARG )
+-  {
+-    int  y;
+-
+-
+-    for ( y = ras.min_ey; y < ras.max_ey; y++ )
+-    {
+-      PCell  cell = ras.ycells[y - ras.min_ey];
+-
+-
+-      printf( "%3d:", y );
+-
+-      for ( ; cell != ras.cell_null; cell = cell->next )
+-        printf( " (%3d, c:%4d, a:%6d)",
+-                cell->x, cell->cover, cell->area );
+-      printf( "\n" );
+-    }
+-  }
+-
+-#endif /* FT_DEBUG_LEVEL_TRACE */
+-
+ 
+   /**************************************************************************
+    *
+@@ -1923,7 +1897,7 @@ typedef ptrdiff_t  FT_PtrDist;
+       if ( continued )
+         FT_Trace_Enable();
+ 
+-      FT_TRACE7(( "band [%d..%d]: %ld cell%s remaining/\n",
++      FT_TRACE7(( "band [%d..%d]: %ld cell%a remaining/\n",
+                   ras.min_ey,
+                   ras.max_ey,
+                   ras.cell_null - ras.cell_free,
+@@ -1940,7 +1914,9 @@ typedef ptrdiff_t  FT_PtrDist;
+     return error;
+   }
+ 
+-
++#ifdef __GNUC__
++#pragma GCC diagnostic ignored "-Wdangling-pointer"
++#endif
+   static int
+   gray_convert_glyph( RAS_ARG )
+   {
+diff --git a/src/truetype/ttdriver.c b/src/truetype/ttdriver.c
+index 245d97c..93e837a 100644
+--- a/src/truetype/ttdriver.c
++++ b/src/truetype/ttdriver.c
+@@ -108,7 +108,7 @@
+       return error;
+     }
+ 
+-    FT_TRACE2(( "tt_property_set: missing property `%s'\n",
++    FT_TRACE2(( "tt_property_set: missing property `%a'\n",
+                 property_name ));
+     return FT_THROW( Missing_Property );
+   }
+@@ -135,7 +135,7 @@
+       return error;
+     }
+ 
+-    FT_TRACE2(( "tt_property_get: missing property `%s'\n",
++    FT_TRACE2(( "tt_property_get: missing property `%a'\n",
+                 property_name ));
+     return FT_THROW( Missing_Property );
+   }
+diff --git a/src/truetype/ttgload.c b/src/truetype/ttgload.c
+index 2ca63d6..d57bc1d 100644
+--- a/src/truetype/ttgload.c
++++ b/src/truetype/ttgload.c
+@@ -708,7 +708,7 @@
+     } while ( subglyph->flags & MORE_COMPONENTS );
+ 
+     gloader->current.num_subglyphs = num_subglyphs;
+-    FT_TRACE5(( "  %d component%s\n",
++    FT_TRACE5(( "  %d component%a\n",
+                 num_subglyphs,
+                 num_subglyphs > 1 ? "s" : "" ));
+ 
+diff --git a/src/truetype/ttgxvar.c b/src/truetype/ttgxvar.c
+index 6a0edef..0fb63f2 100644
+--- a/src/truetype/ttgxvar.c
++++ b/src/truetype/ttgxvar.c
+@@ -1133,7 +1133,7 @@
+                                    outerIndex,
+                                    innerIndex );
+ 
+-    FT_TRACE5(( "%s value %d adjusted by %d unit%s (%s)\n",
++    FT_TRACE5(( "%a value %d adjusted by %d unit%a (%a)\n",
+                 vertical ? "vertical height" : "horizontal width",
+                 *avalue,
+                 delta,
+@@ -1429,7 +1429,7 @@
+ 
+       if ( p )
+       {
+-        FT_TRACE5(( "value %c%c%c%c (%d unit%s) adjusted by %d unit%s (MVAR)\n",
++        FT_TRACE5(( "value %c%c%c%c (%d unit%a) adjusted by %d unit%a (MVAR)\n",
+                     (FT_Char)( value->tag >> 24 ),
+                     (FT_Char)( value->tag >> 16 ),
+                     (FT_Char)( value->tag >> 8 ),
+@@ -1625,7 +1625,7 @@
+     blend->gvar_size = table_len;
+     offsetToData     = gvar_start + gvar_head.offsetToData;
+ 
+-    FT_TRACE5(( "gvar: there %s %d shared coordinate%s:\n",
++    FT_TRACE5(( "gvar: there %a %d shared coordinate%a:\n",
+                 gvar_head.globalCoordCount == 1 ? "is" : "are",
+                 gvar_head.globalCoordCount,
+                 gvar_head.globalCoordCount == 1 ? "" : "s" ));
+@@ -2213,7 +2213,7 @@
+ 
+       FT_TRACE2(( "loaded\n" ));
+ 
+-      FT_TRACE5(( "%d variation ax%s\n",
++      FT_TRACE5(( "%d variation ax%a\n",
+                   fvar_head.axisCount,
+                   fvar_head.axisCount == 1 ? "is" : "es" ));
+ 
+@@ -2354,8 +2354,8 @@
+                       "    minimum     default     maximum   flags\n" ));
+                    /* "  XXXX.XXXXX  XXXX.XXXXX  XXXX.XXXXX  0xXXXX" */
+ 
+-        FT_TRACE5(( "  %3d  `%s'"
+-                    "  %10.5f  %10.5f  %10.5f  0x%04X%s\n",
++        FT_TRACE5(( "  %3d  `%a'"
++                    "  %10.5f  %10.5f  %10.5f  0x%04X%a\n",
+                     i,
+                     a->name,
+                     a->minimum / 65536.0,
+@@ -2388,7 +2388,7 @@
+           goto Exit;
+       }
+ 
+-      FT_TRACE5(( "%d instance%s\n",
++      FT_TRACE5(( "%d instance%a\n",
+                   fvar_head.instanceCount,
+                   fvar_head.instanceCount == 1 ? "" : "s" ));
+ 
+@@ -2446,7 +2446,7 @@
+ 
+           (void)FT_STREAM_SEEK( pos );
+ 
+-          FT_TRACE5(( "  instance %d (%s%s%s, %s%s%s)\n",
++          FT_TRACE5(( "  instance %d (%a%a%a, %a%a%a)\n",
+                       i,
+                       strname ? "name: `" : "",
+                       strname ? strname : "unnamed",
+@@ -3383,7 +3383,7 @@
+       FT_Stream_SeekSet( stream, here );
+     }
+ 
+-    FT_TRACE5(( "cvar: there %s %d tuple%s:\n",
++    FT_TRACE5(( "cvar: there %a %d tuple%a:\n",
+                 ( tupleCount & GX_TC_TUPLE_COUNT_MASK ) == 1 ? "is" : "are",
+                 tupleCount & GX_TC_TUPLE_COUNT_MASK,
+                 ( tupleCount & GX_TC_TUPLE_COUNT_MASK ) == 1 ? "" : "s" ));
+@@ -3948,7 +3948,7 @@
+       FT_Stream_SeekSet( stream, here );
+     }
+ 
+-    FT_TRACE5(( "gvar: there %s %d tuple%s:\n",
++    FT_TRACE5(( "gvar: there %a %d tuple%a:\n",
+                 ( tupleCount & GX_TC_TUPLE_COUNT_MASK ) == 1 ? "is" : "are",
+                 tupleCount & GX_TC_TUPLE_COUNT_MASK,
+                 ( tupleCount & GX_TC_TUPLE_COUNT_MASK ) == 1 ? "" : "s" ));
+diff --git a/src/truetype/ttinterp.c b/src/truetype/ttinterp.c
+index e16565c..c1fbc2c 100644
+--- a/src/truetype/ttinterp.c
++++ b/src/truetype/ttinterp.c
+@@ -3783,7 +3783,7 @@
+ 
+             if ( opcode_pointer[i] == opcode_size[i] )
+             {
+-              FT_TRACE6(( "sph: Function %d, opcode ptrn: %ld, %s %s\n",
++              FT_TRACE6(( "sph: Function %d, opcode ptrn: %ld, %a %a\n",
+                           i, n,
+                           exc->face->root.family_name,
+                           exc->face->root.style_name ));
+@@ -7853,7 +7853,7 @@
+       exc->opcode = exc->code[exc->IP];
+ 
+ #ifdef FT_DEBUG_LEVEL_TRACE
+-      if ( ft_trace_levels[trace_ttinterp] >= 6 )
++      if ( 1 )
+       {
+         FT_Long  cnt = FT_MIN( 8, exc->top );
+         FT_Long  n;
+@@ -7863,7 +7863,7 @@
+         /* and the first few stack elements also             */
+         FT_TRACE6(( "  " ));
+         FT_TRACE7(( "%06ld ", exc->IP ));
+-        FT_TRACE6(( "%s", opcode_name[exc->opcode] + 2 ));
++        FT_TRACE6(( "%a", opcode_name[exc->opcode] + 2 ));
+         FT_TRACE7(( "%*s", *opcode_name[exc->opcode] == 'A'
+                               ? 2
+                               : 12 - ( *opcode_name[exc->opcode] - '0' ),
+@@ -7945,7 +7945,7 @@
+ 
+             if ( opcode_pointer[i] == opcode_size[i] )
+             {
+-              FT_TRACE6(( "sph: opcode ptrn: %d, %s %s\n",
++              FT_TRACE6(( "sph: opcode ptrn: %d, %a %a\n",
+                           i,
+                           exc->face->root.family_name,
+                           exc->face->root.style_name ));
+@@ -8589,7 +8589,7 @@
+     } while ( !exc->instruction_trap );
+ 
+   LNo_Error_:
+-    FT_TRACE4(( "  %ld instruction%s executed\n",
++    FT_TRACE4(( "  %ld instruction%a executed\n",
+                 ins_counter,
+                 ins_counter == 1 ? "" : "s" ));
+ 
+diff --git a/src/truetype/ttobjs.c b/src/truetype/ttobjs.c
+index f4f3c69..34f2858 100644
+--- a/src/truetype/ttobjs.c
++++ b/src/truetype/ttobjs.c
+@@ -162,7 +162,7 @@
+       if ( !ft_isupper( name[i] ) )
+         return name;
+ 
+-    FT_TRACE7(( "name without randomization tag: %s\n", name + 7 ));
++    FT_TRACE7(( "name without randomization tag: %a\n", name + 7 ));
+     return name + 7;
+   }
+ 
+@@ -554,7 +554,7 @@
+          tt_check_trickyness_family( face->family_name ) )
+     {
+       FT_TRACE3(( "found as a tricky font"
+-                  " by its family name: %s\n", face->family_name ));
++                  " by its family name: %a\n", face->family_name ));
+       return TRUE;
+     }
+ 
+diff --git a/src/truetype/ttpload.c b/src/truetype/ttpload.c
+index 6982c71..a951c12 100644
+--- a/src/truetype/ttpload.c
++++ b/src/truetype/ttpload.c
+@@ -498,7 +498,8 @@
+   }
+ 
+ 
+-  FT_COMPARE_DEF( int )
++  FT_COMPARE_DEF( INTN )
++  EFIAPI
+   compare_ppem( const void*  a,
+                 const void*  b )
+   {
+diff --git a/src/truetype/ttsubpix.c b/src/truetype/ttsubpix.c
+index 2438d3a..b3e29df 100644
+--- a/src/truetype/ttsubpix.c
++++ b/src/truetype/ttsubpix.c
+@@ -914,7 +914,7 @@
+       return;
+ 
+ #ifdef SPH_DEBUG_MORE_VERBOSE
+-    printf( "%s,%d,%s,%c=%d ",
++    printf( "%a,%d,%a,%c=%d ",
+             family, ppem, style, glyph_index, glyph_index );
+ #endif
+ 
+diff --git a/src/type1/t1gload.c b/src/type1/t1gload.c
+index 5402315..ba954a2 100644
+--- a/src/type1/t1gload.c
++++ b/src/type1/t1gload.c
+@@ -333,7 +333,7 @@
+       else
+         advances[nn] = 0;
+ 
+-      FT_TRACE5(( "  idx %d: advance width %ld font unit%s\n",
++      FT_TRACE5(( "  idx %d: advance width %ld font unit%a\n",
+                   first + nn,
+                   advances[nn],
+                   advances[nn] == 1 ? "" : "s" ));
+diff --git a/src/type1/t1load.c b/src/type1/t1load.c
+index 66bebd5..cbf9342 100644
+--- a/src/type1/t1load.c
++++ b/src/type1/t1load.c
+@@ -831,7 +831,7 @@
+       if ( name )
+       {
+         FT_TRACE0(( "parse_blend_axis_types:"
+-                    " overwriting axis name `%s' with `%.*s'\n",
++                    " overwriting axis name `%a' with `%.*s'\n",
+                     name, len, token->start ));
+         FT_FREE( name );
+       }
+@@ -1223,7 +1223,7 @@
+     /* if the keyword has a dedicated callback, call it */
+     if ( field->type == T1_FIELD_TYPE_CALLBACK )
+     {
+-      FT_TRACE4(( "  %s", field->ident ));
++      FT_TRACE4(( "  %a", field->ident ));
+ 
+       field->reader( (FT_Face)face, loader );
+       error = loader->parser.root.error;
+@@ -1302,7 +1302,7 @@
+       max_objects  = 0;
+     }
+ 
+-    FT_TRACE4(( "  %s", field->ident ));
++    FT_TRACE4(( "  %a", field->ident ));
+ 
+     if ( *objects )
+     {
+@@ -1316,7 +1316,7 @@
+     }
+     else
+     {
+-      FT_TRACE1(( "t1_load_keyword: ignoring keyword `%s'"
++      FT_TRACE1(( "t1_load_keyword: ignoring keyword `%a'"
+                   " which is not valid at this point\n",
+                  field->ident ));
+       FT_TRACE1(( "                 (probably due to missing keywords)\n" ));
+@@ -2426,7 +2426,7 @@
+ 
+               if ( !( dict & keyword->dict ) )
+               {
+-                FT_TRACE1(( "parse_dict: found `%s' but ignoring it"
++                FT_TRACE1(( "parse_dict: found `%a' but ignoring it"
+                             " since it is in the wrong dictionary\n",
+                             keyword->ident ));
+                 break;

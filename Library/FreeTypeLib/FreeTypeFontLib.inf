@@ -1,0 +1,59 @@
+## @file
+#  This package contains module defination for font rendering library with FreeType.
+#
+#  wjs+o(wjs) team, 2023, All rights granted.
+#
+#  SPDX-License-Identifier: DO WHAT THE F**K YOU WANT TO PUBLIC LICENSE.
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = FreeTypeFontLib
+  FILE_GUID                      = 1e737ca8-ae67-4ba4-a3c6-94a81dde4e3f
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 0.1
+  LIBRARY_CLASS                  = FontLib
+
+[Sources]
+  FreeTypeFontLibEntry.c
+  Renderer.c
+  FreeTypeWrapper/ftstdlib.c
+  freetype/src/base/ftinit.c
+  freetype/src/base/ftobjs.c
+  freetype/src/base/ftutil.c
+  freetype/src/base/ftcalc.c
+  freetype/src/base/ftglyph.c
+  freetype/src/base/ftfntfmt.c
+  freetype/src/base/fttrigon.c
+  freetype/src/base/ftlcdfil.c
+  freetype/src/base/ftbitmap.c
+  freetype/src/base/ftoutln.c
+  freetype/src/base/ftgloadr.c
+  freetype/src/base/ftstream.c
+  freetype/src/base/ftsystem.c
+  freetype/src/sfnt/sfnt.c
+  freetype/src/truetype/truetype.c
+  freetype/src/smooth/smooth.c
+  BaseOperations.c
+
+[Protocols]
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  viZBios/viZBios.dec
+
+[LibraryClasses]
+  UefiBootServicesTableLib
+  UefiLib
+  DebugLib
+  MemoryAllocationLib
+  SortLib
+  Theme
+
+[Pcd]
+
+# Here we need to import FreeType's headers.
+[BuildOptions]
+  GCC:*_*_*_CC_FLAGS = -include $(WORKSPACE)/viZBios/Library/FreeTypeFontLib/FreeTypeWrapper/ft2build.h -I$(WORKSPACE)/viZBios/Library/FreeTypeFontLib/freetype/include

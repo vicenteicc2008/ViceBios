@@ -1,4 +1,4 @@
-# ViceBios
+# viZBios
 a BIOS Setup for EDK2/UEFI
 
 ## Credits
